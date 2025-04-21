@@ -38,5 +38,27 @@ router.post('/', authenticate(), async (req, res) => {
     res.status(500).json({ error: 'Error updating progress' });
   }
 });
+// routes/progress.js (Add this part)
+
+router.get('/completed/:pathId', authenticate(), async (req, res) => {
+  const { pathId } = req.params;
+  const user_id = req.user?.id;
+
+  if (!pathId || !user_id) {
+    return res.status(400).json({ error: 'Missing pathId or user_id' });
+  }
+
+  try {
+    const completedResources = await pool.query(
+      'SELECT resource_id FROM progress WHERE user_id = $1 AND is_completed = TRUE AND resource_id IN (SELECT id FROM resources WHERE path_id = $2)',
+      [user_id, pathId]
+    );
+    res.status(200).json({ completedResources: completedResources.rows });
+  } catch (err) {
+    console.error('Error fetching progress:', err);
+    res.status(500).json({ error: 'Error fetching progress' });
+  }
+});
+
 
 module.exports = router;
