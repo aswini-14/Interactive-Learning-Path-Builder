@@ -15,21 +15,27 @@ router.post('/', authenticate(), async (req, res) => {
   }
 
   try {
+    // Check if this progress entry already exists
     const existing = await pool.query(
       'SELECT * FROM progress WHERE user_id = $1 AND resource_id = $2',
       [user_id, resource_id]
     );
+    console.log("Existing progress:", existing.rows);  // Log existing progress
 
     if (existing.rows.length > 0) {
+      // If the progress already exists, update it
       await pool.query(
         'UPDATE progress SET is_completed = TRUE WHERE user_id = $1 AND resource_id = $2',
         [user_id, resource_id]
       );
+      console.log('Progress updated to completed for resource_id:', resource_id);
     } else {
+      // If no existing progress entry, insert new entry
       await pool.query(
         'INSERT INTO progress (user_id, resource_id, is_completed) VALUES ($1, $2, TRUE)',
         [user_id, resource_id]
       );
+      console.log('Progress marked as completed for resource_id:', resource_id);
     }
 
     res.status(200).json({ message: 'Progress updated.' });
@@ -38,9 +44,9 @@ router.post('/', authenticate(), async (req, res) => {
     res.status(500).json({ error: 'Error updating progress' });
   }
 });
-// routes/progress.js (Add this part)
 
-router.get('/completed/:pathId', authenticate(), async (req, res) => {
+// Get progress for a specific path
+router.get('/progress/:pathId', authenticate(), async (req, res) => {
   const { pathId } = req.params;
   const user_id = req.user?.id;
 
@@ -49,16 +55,36 @@ router.get('/completed/:pathId', authenticate(), async (req, res) => {
   }
 
   try {
+    // Fetch all resources for the given path
+    const resources = await pool.query(
+      'SELECT id FROM resources WHERE path_id = $1',
+      [pathId]
+    );
+    console.log("Resources for pathId:", pathId, resources.rows);  // Log resources
+
+    // Fetch completed resources for the user
     const completedResources = await pool.query(
       'SELECT resource_id FROM progress WHERE user_id = $1 AND is_completed = TRUE AND resource_id IN (SELECT id FROM resources WHERE path_id = $2)',
       [user_id, pathId]
     );
-    res.status(200).json({ completedResources: completedResources.rows });
+    console.log("Completed resources for user:", completedResources.rows);  // Log completed resources
+
+    // Calculate progress percentage
+    const totalResources = resources.rows.length;
+    const completedCount = completedResources.rows.length;
+    const progress = totalResources > 0 ? (completedCount / totalResources) * 100 : 0;
+    console.log("total: ", totalResources, " completed: ", completedCount, " progress: ", progress);
+
+    res.status(200).json({
+      progress,
+      completedResources: completedResources.rows,
+      totalResources
+    });
+
   } catch (err) {
     console.error('Error fetching progress:', err);
     res.status(500).json({ error: 'Error fetching progress' });
   }
 });
-
 
 module.exports = router;
