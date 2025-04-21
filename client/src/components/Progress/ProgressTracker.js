@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
-import { updateProgress } from '../../api/progress';
+import { markProgress } from '../../api/progress';
 
-export default function ProgressTracker({resourceId}) {
+export default function ProgressTracker({ resourceId, onComplete }) {
   const [done, setDone] = useState(false);
 
   const markDone = () => {
-    updateProgress(resourceId).then(() => setDone(true));
+    markProgress(resourceId)
+      .then(() => {
+        console.log('Progress marked successfully');
+        setDone(true);
+        onComplete();  // Trigger the callback to refresh progress in PathViewer
+      })
+      .catch(error => {
+        console.error('Error marking progress:', error);
+      });
   };
 
   return (
