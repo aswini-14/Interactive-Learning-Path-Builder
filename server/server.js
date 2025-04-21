@@ -6,7 +6,6 @@ const progressRoutes = require('./routes/progress');
 const resourceRoutes = require('./routes/resources'); 
 const app = express();
 const cors = require('cors');
-app.use(cors());
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require('socket.io');
@@ -14,12 +13,18 @@ const io = new Server(server, {
   cors: { origin: '*' }
 });
 
+// Middleware and routes setup
+app.use(cors());
 app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/paths', pathRoutes);
 app.use('/api/progress', progressRoutes);
-app.use('/api/resources', resourceRoutes); 
+app.use('/api/resources', resourceRoutes);
 app.use('/api/certificates', require('./routes/certificates'));
+
+// Serve certificates as static files
+const path = require('path');
+app.use('/certificates', express.static(path.join(__dirname, 'certificates')));
 
 io.on('connection', socket => {
   console.log('User connected');

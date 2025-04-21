@@ -3,8 +3,9 @@ const router = express.Router();
 const pool = require('../config/database');
 const PDFDocument = require('pdfkit');
 const authenticate = require('../middleware/authenticate');
+const path = require('path');
 
-router.get('/:pathId', authenticate, async (req, res) => {
+router.get('/:pathId', authenticate(), async (req, res) => {
   const user_id = req.user.id;
   const path_id = req.params.pathId;
 
@@ -40,20 +41,21 @@ router.get('/:pathId', authenticate, async (req, res) => {
 
     // Generate PDF
     const user = await pool.query('SELECT name FROM users WHERE id = $1', [user_id]);
-    const path = await pool.query('SELECT title FROM learning_paths WHERE id = $1', [path_id]);
+    const pathData = await pool.query('SELECT title FROM learning_paths WHERE id = $1', [path_id]);
 
     const doc = new PDFDocument();
     res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', `inline; filename="certificate.pdf"`);
+    res.setHeader('Content-Disposition', `inline; filename="certificate_${user_id}_${path_id}.pdf"`);
     doc.pipe(res);
 
+    // Add certificate content
     doc.fontSize(22).text('Certificate of Completion', { align: 'center' });
     doc.moveDown();
     doc.fontSize(16).text(`${user.rows[0].name} has successfully completed the learning path:`, {
       align: 'center'
     });
     doc.moveDown();
-    doc.fontSize(20).text(`${path.rows[0].title}`, { align: 'center', underline: true });
+    doc.fontSize(20).text(`${pathData.rows[0].title}`, { align: 'center', underline: true });
     doc.moveDown(2);
     doc.text(`Issued on: ${new Date().toLocaleDateString()}`, { align: 'center' });
 
