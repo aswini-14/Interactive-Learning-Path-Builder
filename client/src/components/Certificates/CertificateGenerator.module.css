@@ -1,0 +1,32 @@
+.certificate-btn {
+    background-color: #007bff;  /* Blue background */
+    color: white;
+    font-size: 0.8rem;  /* Smaller font size */
+    padding: 6px 12px;  /* Reduced padding for smaller button */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 500;
+  }
+  
+  .certificate-btn:hover {
+    background-color: #0056b3;  /* Darker blue on hover */
+    transform: translateY(-2px);  /* Slight lift effect */
+  }
+  
+  .certificate-btn:disabled {
+    background-color: #d6d8db;  /* Light gray when disabled */
+    cursor: not-allowed;
+  }
+  
+  /* Center the button within its parent container */
+  .center-button {
+    display: flex;
+    justify-content: center;  /* Center horizontally */
+    align-items: center;  /* Center vertically */
+    height: 100%;  /* Ensure it takes full height of the container */
+    width: 30%;  /* Button container will be 30% of the parent container's width */
+    margin: 0 auto;  /* Horizontally center the container itself */
+  }
+  

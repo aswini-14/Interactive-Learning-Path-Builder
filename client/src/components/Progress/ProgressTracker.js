@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { markProgress } from '../../api/progress';
+import styles from './ProgressTracker.module.css';
 
 export default function ProgressTracker({ resourceId, onComplete }) {
   const [done, setDone] = useState(false);
@@ -9,7 +10,7 @@ export default function ProgressTracker({ resourceId, onComplete }) {
       .then(() => {
         console.log('Progress marked successfully');
         setDone(true);
-        onComplete();  // Trigger the callback to refresh progress in PathViewer
+        onComplete(); // Refresh progress in PathViewer
       })
       .catch(error => {
         console.error('Error marking progress:', error);
@@ -17,7 +18,11 @@ export default function ProgressTracker({ resourceId, onComplete }) {
   };
 
   return (
-    <button onClick={markDone} disabled={done}>
+    <button
+      className={styles['mark-complete-btn']}
+      onClick={markDone}
+      disabled={done}
+    >
       {done ? 'Completed ✅' : 'Mark Complete'}
     </button>
   );

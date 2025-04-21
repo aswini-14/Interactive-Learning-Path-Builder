@@ -1,0 +1,41 @@
+.path-viewer {
+    background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%);
+    padding: 30px;
+    min-height: 100vh;
+    font-family: 'Arial', sans-serif;
+    color: #fff;
+  }
+  
+  .title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .description {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
+  
+  .progress-container {
+    background-color: #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 25px;
+    margin-bottom: 10px;
+  }
+  
+  .progress-bar {
+    background-color: #2ecc71;
+    height: 100%;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .progress-text {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+  

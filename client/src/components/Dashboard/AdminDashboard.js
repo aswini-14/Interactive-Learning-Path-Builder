@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getUsers, updateUserRole, deleteUser } from '../../api/admin';
-import './AdminDashboard.css'; // Optional: for custom styles
+import './AdminDashboard.css'; // Custom CSS for the Admin Dashboard
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
@@ -48,7 +48,7 @@ const AdminDashboard = () => {
     <div className="admin-dashboard">
       <h2>Admin Dashboard</h2>
       {loading ? (
-        <p>Loading users...</p>
+        <p className="loading-message">Loading users...</p>
       ) : (
         <table className="users-table">
           <thead>

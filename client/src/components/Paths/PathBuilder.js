@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { createPath } from '../../api/paths'; // Axios request for creating path
-import { addResource } from '../../api/resources'; // Axios request for adding resources
+import { createPath } from '../../api/paths';
+import { addResource } from '../../api/resources';
+import styles from './PathBuilder.module.css';
 
 const CreatePathAndResourcesForm = () => {
-  // States for creating path
   const [pathTitle, setPathTitle] = useState('');
   const [pathDescription, setPathDescription] = useState('');
   const [isPublic, setIsPublic] = useState(false);
-  
-  // States for creating resources
+
   const [resourceTitle, setResourceTitle] = useState('');
   const [resourceType, setResourceType] = useState('');
   const [resourceUrl, setResourceUrl] = useState('');
@@ -16,9 +15,8 @@ const CreatePathAndResourcesForm = () => {
   const [estimatedTime, setEstimatedTime] = useState('');
   const [resourceOrder, setResourceOrder] = useState('');
 
-  const [pathId, setPathId] = useState(null); // Store pathId after creation
+  const [pathId, setPathId] = useState(null);
 
-  // Handle path creation
   const handleCreatePath = async (e) => {
     e.preventDefault();
 
@@ -29,8 +27,8 @@ const CreatePathAndResourcesForm = () => {
     };
 
     try {
-      const response = await createPath(newPath); // Make API call to create path
-      setPathId(response.data.id); // Set the returned path ID
+      const response = await createPath(newPath);
+      setPathId(response.data.id);
       alert('Learning Path Created Successfully!');
     } catch (err) {
       console.error(err);
@@ -38,7 +36,6 @@ const CreatePathAndResourcesForm = () => {
     }
   };
 
-  // Handle resource creation
   const handleAddResource = async (e) => {
     e.preventDefault();
 
@@ -58,17 +55,16 @@ const CreatePathAndResourcesForm = () => {
     };
 
     try {
-      const response = await addResource(newResource); // Make API call to add resource
+      const response = await addResource(newResource);
       alert('Resource added successfully!');
       console.log(response.data);
-      clearResourceForm(); // Clear resource form fields
+      clearResourceForm();
     } catch (err) {
       console.error(err);
       alert('Error adding resource');
     }
   };
 
-  // Clear resource form fields
   const clearResourceForm = () => {
     setResourceTitle('');
     setResourceType('');
@@ -79,7 +75,7 @@ const CreatePathAndResourcesForm = () => {
   };
 
   return (
-    <div>
+    <div className={styles['path-builder-container']}>
       <h2>Create Learning Path</h2>
       <form onSubmit={handleCreatePath}>
         <label>

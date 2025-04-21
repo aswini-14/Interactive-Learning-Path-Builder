@@ -1,0 +1,60 @@
+/* CreatorDashboard.css */
+.creator-dashboard {
+    background: linear-gradient(135deg, #f9d423 0%, #ff4e50 100%); /* Gradient background */
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    min-height: 100vh;
+    color: #fff;
+  }
+  
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #fff; /* White text for heading */
+  }
+  
+  .create-new-path {
+    display: inline-block;
+    background-color: #FF6F61;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    text-decoration: none;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+  }
+  
+  .create-new-path:hover {
+    background-color: #f35441;
+  }
+  
+  .paths-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .path-item {
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .path-link {
+    font-size: 1.3rem;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .path-link:hover {
+    color: #FF6F61;
+  }
+  
+  .path-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  

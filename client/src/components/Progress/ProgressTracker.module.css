@@ -1,0 +1,23 @@
+.mark-complete-btn {
+    background-color: #28a745;
+    color: white;
+    font-size: 0.875rem; /* smaller text */
+    padding: 6px 12px;   /* smaller padding */
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 500;
+    width: auto;         /* shrink to content */
+    min-width: 120px;    /* optional: prevents it from becoming too small */
+  }
+  
+  .mark-complete-btn:hover {
+    background-color: #218838;
+  }
+  
+  .mark-complete-btn:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+  

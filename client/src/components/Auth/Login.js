@@ -1,11 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { login as apiLogin } from '../../api/auth';
 import { AuthContext } from '../../context/AuthContext';
+import styles from './Login.module.css';  // Import the CSS Module
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(''); // To store error message
+  const [error, setError] = useState('');
   const { login } = useContext(AuthContext);
 
   const handleSubmit = async e => {
@@ -14,17 +15,31 @@ export default function Login() {
       const res = await apiLogin({ email, password });
       login(res.data.token);
     } catch (err) {
-      setError(err.response ? err.response.data.message : 'An error occurred'); // Display the error message from backend
+      setError(err.response ? err.response.data.message : 'An error occurred');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Login</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
-      <input placeholder="Email"    value={email}    onChange={e => setEmail(e.target.value)} />
-      <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-      <button type="submit">Login</button>
-    </form>
+    <div className={styles.container}>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <h2 className={styles.heading}>Login</h2>
+        {error && <p className={styles.error}>{error}</p>}
+
+        <input
+          className={styles.input}
+          placeholder="Email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+        />
+        <input
+          className={styles.input}
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
+        <button type="submit" className={styles.button}>Login</button>
+      </form>
+    </div>
   );
 }

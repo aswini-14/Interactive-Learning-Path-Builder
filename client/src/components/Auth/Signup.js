@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { signup } from '../../api/auth';
 import { useNavigate } from 'react-router-dom';
+import './Signup.css';  // Add this for styling
 
 export default function Signup() {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
-  const [error, setError] = useState(''); // To store error message
+  const [error, setError] = useState('');
   const nav = useNavigate();
 
   const handleChange = e =>
@@ -16,25 +17,51 @@ export default function Signup() {
       await signup(form); // Sending form data without the role
       nav('/login');
     } catch (err) {
-      setError(err.response ? err.response.data.message : 'An error occurred'); // Display the error message from backend
+      setError(err.response ? err.response.data.message : 'An error occurred');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Sign Up</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
-      {['name', 'email', 'password'].map(f => ( // Removed 'role'
-        <input 
-          key={f} 
-          name={f} 
-          type={f === 'password' ? 'password' : 'text'} 
-          placeholder={f} 
-          value={form[f]} 
-          onChange={handleChange} 
-        />
-      ))}
-      <button type="submit">Sign Up</button>
-    </form>
+    <div className="signup-container">
+      <form onSubmit={handleSubmit} className="signup-form">
+        <h2 className="form-heading">Sign Up</h2>
+        {error && <p className="error-message">{error}</p>}  {/* Display error message */}
+        
+        <div className="form-group">
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            value={form.name}
+            onChange={handleChange}
+            className="input-field"
+          />
+        </div>
+        
+        <div className="form-group">
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+            className="input-field"
+          />
+        </div>
+
+        <div className="form-group">
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+            className="input-field"
+          />
+        </div>
+
+        <button type="submit" className="submit-btn">Sign Up</button>
+      </form>
+    </div>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { downloadCertificate } from '../../api/certificates';
+import styles from './CertificateGenerator.module.css';  // Import the CSS module
 
 export default function CertificateGenerator({ pathId }) {
   const generateCertificate = async () => {
@@ -21,8 +22,10 @@ export default function CertificateGenerator({ pathId }) {
   };
 
   return (
-    <div style={{ marginTop: '20px' }}>
-      <button onClick={generateCertificate}>Download Certificate</button>
+    <div className={styles['center-button']} style={{ marginTop: '20px' }}>
+      <button onClick={generateCertificate} className={styles['certificate-btn']}>
+        Download Certificate
+      </button>
     </div>
   );
 }
