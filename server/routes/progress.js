@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authenticate = require('../middleware/authenticate');
-const pool = require('../db');
+const pool = require('../config/database');
 
 // Track progress: mark a resource as completed
 router.post('/', authenticate(), async (req, res) => {
