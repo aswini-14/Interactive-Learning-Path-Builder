@@ -13,7 +13,7 @@ export default function PathViewer({ pathId }) {
       <h2>{path.title}</h2>
       <p>{path.description}</p>
       <ResourceItem pathId={pathId} />
-      <CertificateGenerator userName="Demo User" pathTitle={path.title} />
+      <CertificateGenerator pathId={pathId} />
     </div>
   );
 }

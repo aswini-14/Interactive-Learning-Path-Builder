@@ -1,24 +1,28 @@
 import React from 'react';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+import { downloadCertificate } from '../../api/certificates';
 
-export default function CertificateGenerator({ userName, pathTitle }) {
-  const download = async () => {
-    const node = document.getElementById('certificate');
-    const canvas = await html2canvas(node);
-    const img = canvas.toDataURL('image/png');
-    const pdf = new jsPDF('landscape', 'pt', 'a4');
-    pdf.addImage(img, 'PNG', 20, 20);
-    pdf.save(`${userName}_certificate.pdf`);
+export default function CertificateGenerator({ pathId }) {
+  const generateCertificate = async () => {
+    console.log('Generate Certificate Clicked');
+    try {
+      const response = await downloadCertificate(pathId);
+
+      // Handle the PDF response and download it
+      const url = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `certificate_${pathId}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+    } catch (err) {
+      console.error('Certificate generation failed:', err.response?.data || err.message);
+      alert(err.response?.data?.error || 'Failed to generate certificate');
+    }
   };
 
   return (
-    <div>
-      <div id="certificate" style={{ padding: 20, textAlign: 'center', border: '1px solid #000' }}>
-        <h1>Certificate of Completion</h1>
-        <p>{userName} has completed <strong>{pathTitle}</strong></p>
-      </div>
-      <button onClick={download}>Download Certificate</button>
+    <div style={{ marginTop: '20px' }}>
+      <button onClick={generateCertificate}>Download Certificate</button>
     </div>
   );
 }
