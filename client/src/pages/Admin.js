@@ -1,5 +1,6 @@
 import React from 'react';
+import AdminDashboard from '../components/Dashboard/AdminDashboard';
 
-export default function Admin() {
-  return <h2>Admin Page (manage users here)</h2>;
+export default function Creator() {
+  return <AdminDashboard />;
 }

@@ -60,6 +60,7 @@ const CreatePathAndResourcesForm = () => {
     try {
       const response = await addResource(newResource); // Make API call to add resource
       alert('Resource added successfully!');
+      console.log(response.data);
       clearResourceForm(); // Clear resource form fields
     } catch (err) {
       console.error(err);
