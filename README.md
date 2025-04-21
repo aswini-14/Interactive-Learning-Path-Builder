@@ -1,70 +1,86 @@
-# Getting Started with Create React App
+# Interactive Learning Path Builder
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+The Interactive Learning Path Builder is a web application designed to allow users to create, share, and track their progress in learning paths. The platform supports different user roles, including Learners, Creators, and Admins, with features for creating and following learning paths, tracking progress, and earning certificates.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **User Authentication**: Secure sign-up/login system with JWT-based authentication.
+- **Learning Path Creation**: Creators can create learning paths by adding resources such as videos, articles, and quizzes.
+- **Progress Tracking**: Learners can track their progress through a timeline or progress bar.
+- **PDF Certificate Generation**: Certificates are generated and available for download when a learner completes a path.
+- **Public & Private Paths**: Users can create public or private paths and share them with others.
+- **Responsive UI/UX**: A user-friendly and responsive interface for seamless interaction.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Frontend**: React.js, React Router, Axios, and more.
+- **Backend**: Node.js, Express, PostgreSQL.
+- **Authentication**: JWT (JSON Web Tokens).
+- **Database**: PostgreSQL for managing user data and learning paths.
+- **PDF Generation**: PDFKit for generating certificates.
 
-### `npm test`
+## Setup
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
 
-### `npm run build`
+Before you begin, ensure you have the following installed:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Node.js (v16 or higher)
+- PostgreSQL
+- npm or yarn
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Getting Started
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### 1. Clone the repository:
 
-### `npm run eject`
+```bash
+git clone https://github.com/aswini/Interactive-Learning-Path-Builder.git
+cd Interactive-Learning-Path-Builder
+```
+### 2. Set up the Backend:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   Navigate to the backend folder:
+        cd server
+   Install backend dependencies:
+        npm install
+   Set up environment variables:
+        DB_HOST=your-database-host
+        DB_USER=your-database-user
+        DB_PASSWORD=your-database-password
+        DB_NAME=your-database-name
+        JWT_SECRET=your-jwt-secret-key
+   Run the backend server:
+        node server.js
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 3. Set up the Frontend
+    Navigate to the client folder:
+        cd client
+    Install frontend dependencies:
+        npm install
+    Run the frontend server:
+        npm start
+The application should now be running at http://localhost:3000.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 4. Deployment
+ - **You can deploy the project to services like Netlify or Vercel for the frontend and Heroku for the backend. Follow the documentation provided by each service for detailed deployment steps.**
 
-## Learn More
+- **Frontend (Deployed on Netlify):**
+  - [Live Demo (Netlify)](https://ilp-builder.netlify.app/)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Backend (Deployed on Render):**
+  - [API (Heroku)](https://ilp-backend.onrender.com/)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+ - ** Deployment on Netlify (Frontend):
+    Build the frontend:
+        npm run build
+    Deploy the client/build folder on Netlify.
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## License
+ - This project is not licensed and is for personal use only. Please do not distribute or use this code in any form.
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Contributing
+ - Feel free to fork the project and submit pull requests. If you want to report a bug or request a feature, open an issue in the repository.
