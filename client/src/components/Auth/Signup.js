@@ -64,11 +64,11 @@ export default function Signup() {
         </div>
 
         <button type="submit" className="submit-btn">Sign Up</button>
-        <div>
+        {/* <div>
         <p className="login-redirect">
         Already registered? <a href="/login">Go to Login</a>
       </p>
-        </div>
+        </div> */}
       </form>
       
     </div>
