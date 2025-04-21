@@ -1,4 +1,6 @@
 # Interactive Learning Path Builder
+- [Video link(drive)](https://drive.google.com/file/d/1N-Xz4xw2OCyxGD_ArwL4w2AHTDeWv3zz/view?usp=sharing)
+
 
 ## Description
 
@@ -41,17 +43,17 @@ cd Interactive-Learning-Path-Builder
 ```
 ### 2. Set up the Backend:
 
-   Navigate to the backend folder:
+   - Navigate to the backend folder:
         cd server
-   Install backend dependencies:
+   - Install backend dependencies:
         npm install
-   Set up environment variables:
+   - Set up environment variables:
         DB_HOST=your-database-host
         DB_USER=your-database-user
         DB_PASSWORD=your-database-password
         DB_NAME=your-database-name
         JWT_SECRET=your-jwt-secret-key
-   Run the backend server:
+   - Run the backend server:
         node server.js
 
 ### 3. Set up the Frontend
@@ -71,7 +73,7 @@ The application should now be running at http://localhost:3000.
   - [Live Demo (Netlify)](https://ilp-builder.netlify.app/)
 
 - **Backend (Deployed on Render):**
-  - [API (Heroku)](https://ilp-backend.onrender.com/)
+  - [API (Render)](https://ilp-backend.onrender.com/)
 
  - ** Deployment on Netlify (Frontend):
     Build the frontend:
