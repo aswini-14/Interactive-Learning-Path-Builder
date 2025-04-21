@@ -13,7 +13,7 @@ export default function CreatorDashboard() {
   return (
     <div className="creator-dashboard">
       <h2>Your Paths</h2>
-      <Link to="/paths" className="create-new-path">+ Create New Path</Link>
+      <Link to="/paths/create" className="create-new-path">+ Create New Path</Link>
       <ul className="paths-list">
         {paths.map(p => (
           <li key={p.id} className="path-item">

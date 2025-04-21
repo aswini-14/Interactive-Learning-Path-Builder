@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div className="home-container">
       <div className="welcome-section">
-        <h1 className="heading">Welcome to ILP Builder</h1>
+        <h1 className="heading">Welcome to Interactive Learning Platform</h1>
         <p className="subheading">Interactive Learning Path Builder - Create, Learn, Achieve</p>
       </div>
 

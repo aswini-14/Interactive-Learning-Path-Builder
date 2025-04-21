@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { createPath } from '../../api/paths';
 import { addResource } from '../../api/resources';
+import { useNavigate } from 'react-router-dom';
 import styles from './PathBuilder.module.css';
+import { AuthContext } from '../../context/AuthContext'; // ✅ Make sure this is the right path
 
 const CreatePathAndResourcesForm = () => {
   const [pathTitle, setPathTitle] = useState('');
@@ -17,9 +19,11 @@ const CreatePathAndResourcesForm = () => {
 
   const [pathId, setPathId] = useState(null);
 
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext); // ✅ Get the logged-in user from context
+
   const handleCreatePath = async (e) => {
     e.preventDefault();
-
     const newPath = {
       title: pathTitle,
       description: pathDescription,
@@ -38,7 +42,6 @@ const CreatePathAndResourcesForm = () => {
 
   const handleAddResource = async (e) => {
     e.preventDefault();
-
     if (!pathId) {
       alert('Please create a learning path first!');
       return;
@@ -72,6 +75,20 @@ const CreatePathAndResourcesForm = () => {
     setResourceDescription('');
     setEstimatedTime('');
     setResourceOrder('');
+  };
+
+  const handleBackButton = () => {
+    // ✅ Navigate based on user role
+    if (user && user.role === 'creator') {
+      navigate('/creator');
+    } else if (user && user.role === 'admin') {
+      navigate('/admin');
+    } else if (user && user.role === 'learner') {
+      navigate('/learner');
+    } else {
+      console.error('User role not found, defaulting to home');
+      navigate('/');
+    }
   };
 
   return (
@@ -125,6 +142,10 @@ const CreatePathAndResourcesForm = () => {
           </form>
         </>
       )}
+
+      <button onClick={handleBackButton} className={styles['back-button']}>
+        Back to Dashboard
+      </button>
     </div>
   );
 };

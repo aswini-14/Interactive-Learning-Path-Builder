@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { AuthContext } from './context/AuthContext';
 import Home from './pages/Home';
@@ -25,18 +25,18 @@ function PathViewerWrapper() {
 
 function App() {
   const { user } = useContext(AuthContext);
-  const [isLoading, setIsLoading] = useState(true);  // To handle initial loading state
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (user) {
-      setIsLoading(false); // Stop loading if user data is available
+      setIsLoading(false);
     } else {
-      setIsLoading(false); // Stop loading if no user (showing home)
+      setIsLoading(false);
     }
   }, [user]);
 
   if (isLoading) {
-    return <div>Loading...</div>;  // Show loading spinner while checking authentication
+    return <div>Loading...</div>;
   }
 
   return (
@@ -58,7 +58,11 @@ function App() {
       />
       <Route
         path="/paths"
-        element={<Protected roles={['creator', 'admin']}><PathBuilder /></Protected>}
+        element={<Protected roles={['admin', 'creator', 'learner']}><PathViewerWrapper /></Protected>}
+      />
+      <Route
+        path="/paths/create"
+        element={<Protected roles={['admin', 'creator']}><PathBuilder /></Protected>}
       />
       <Route
         path="/paths/:id"

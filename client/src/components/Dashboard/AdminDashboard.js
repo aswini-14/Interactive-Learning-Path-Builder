@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { getUsers, updateUserRole, deleteUser } from '../../api/admin';
-import './AdminDashboard.css'; // Custom CSS for the Admin Dashboard
+import { Link } from 'react-router-dom';
+import PathList from '../Paths/PathList';  // Adjusted import path
+
+import './AdminDashboard.css';
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loadingUsers, setLoadingUsers] = useState(true);
+  const [showPaths, setShowPaths] = useState(false);  // State to toggle paths visibility
 
-  // Fetch users when the component mounts
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -15,7 +18,7 @@ const AdminDashboard = () => {
       } catch (err) {
         console.error('Error fetching users:', err);
       } finally {
-        setLoading(false);
+        setLoadingUsers(false);
       }
     };
 
@@ -44,49 +47,75 @@ const AdminDashboard = () => {
     }
   };
 
+  const togglePathsVisibility = () => {
+    setShowPaths(!showPaths);  // Toggle the visibility of PathList component
+  };
+
   return (
     <div className="admin-dashboard">
       <h2>Admin Dashboard</h2>
-      {loading ? (
-        <p className="loading-message">Loading users...</p>
-      ) : (
-        <table className="users-table">
-          <thead>
-            <tr>
-              <th>Username</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map(user => (
-              <tr key={user.id}>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>
-                  <select
-                    value={user.role}
-                    onChange={(e) => handleRoleChange(user.id, e.target.value)}
-                  >
-                    <option value="admin">Admin</option>
-                    <option value="creator">Creator</option>
-                    <option value="learner">Learner</option>
-                  </select>
-                </td>
-                <td>
-                  <button
-                    onClick={() => handleDeleteUser(user.id)}
-                    className="delete-button"
-                  >
-                    Delete
-                  </button>
-                </td>
+
+      {/* User Management Section */}
+      <div className="section">
+        <h3>User Management</h3>
+        {loadingUsers ? (
+          <p className="loading-message">Loading users...</p>
+        ) : (
+          <table className="users-table">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+            </thead>
+            <tbody>
+              {users.map(user => (
+                <tr key={user.id}>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>
+                    <select
+                      value={user.role}
+                      onChange={(e) => handleRoleChange(user.id, e.target.value)}
+                    >
+                      <option value="admin">Admin</option>
+                      <option value="creator">Creator</option>
+                      <option value="learner">Learner</option>
+                    </select>
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => handleDeleteUser(user.id)}
+                      className="delete-button"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+
+      {/* Learning Paths Section */}
+      <div className="path-management">
+        <h3>Learning Path Management</h3>
+        <div className="button-group">
+          <button onClick={togglePathsVisibility} className="view-paths-button">
+            {showPaths ? 'Hide Learning Paths' : 'View All Learning Paths'}
+          </button>
+          <Link to="/paths/create" className="create-path-button">
+            + Create New Path
+          </Link>
+        </div>
+
+        {/* Conditionally render the PathList component */}
+        {showPaths && <PathList />}
+      </div>
+
     </div>
   );
 };

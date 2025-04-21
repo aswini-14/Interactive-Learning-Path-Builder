@@ -30,4 +30,25 @@
     color: #666;
     margin-bottom: 12px;
   }
+  .resource-type {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 8px;
+    color: #007bff;
+  }
+  
+  .resource-url {
+    font-size: 0.9rem;
+    color: #0069d9;
+    margin-top: 4px;
+  }
+  
+  .resource-url a {
+    color: #0069d9;
+    text-decoration: none;
+  }
+  
+  .resource-url a:hover {
+    text-decoration: underline;
+  }
   

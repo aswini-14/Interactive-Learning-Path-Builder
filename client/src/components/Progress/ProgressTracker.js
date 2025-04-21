@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { markProgress } from '../../api/progress';
 import styles from './ProgressTracker.module.css';
 
-export default function ProgressTracker({ resourceId, onComplete }) {
-  const [done, setDone] = useState(false);
+export default function ProgressTracker({ resourceId, onComplete, isCompleted }) {
+  const [done, setDone] = useState(isCompleted);
 
   const markDone = () => {
     markProgress(resourceId)
