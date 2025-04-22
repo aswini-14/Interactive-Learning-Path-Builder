@@ -60,7 +60,7 @@ export default function PathViewer({ pathId }) {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading || !path ) return <p>Loading...</p>;
 
   const progress = totalResources > 0 ? (completedCount / totalResources) * 100 : 0;
 
