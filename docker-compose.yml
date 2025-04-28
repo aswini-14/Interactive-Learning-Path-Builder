@@ -1,0 +1,45 @@
+services:
+  backend:
+    build:
+      context: ./server  
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_NAME=ilp_builder
+      - JWT_SECRET=supersecretjwtkey123
+    depends_on:
+      - db
+    networks:
+      - app_network
+
+  frontend:
+    build:
+      context: ./client  
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://backend:5000/api
+    networks:
+      - app_network
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ilp_builder
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  
+      - ./backups/ilp_builder_backup.sql:/docker-entrypoint-initdb.d/ilp_builder_backup.sql  
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  postgres_data:  
