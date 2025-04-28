@@ -1,5 +1,5 @@
 # Interactive Learning Path Builder
-- [Video link(drive)](https://drive.google.com/file/d/1N-Xz4xw2OCyxGD_ArwL4w2AHTDeWv3zz/view?usp=sharing)
+- [Video link(drive)](https://drive.google.com/file/d/1RazLDbbWUu0Ng259YEUPfyVlbkLxOj04/view?usp=sharing)
 
 
 ## Description
@@ -8,12 +8,13 @@ The Interactive Learning Path Builder is a web application designed to allow use
 
 ## Features
 
-- **User Authentication**: Secure sign-up/login system with JWT-based authentication.
-- **Learning Path Creation**: Creators can create learning paths by adding resources such as videos, articles, and quizzes.
+- **User Authentication**: Secure sign-up/login system with JWT-based authentication for learners. After signing up, all users are logged in as Learners by default.    
+- **Role Management**:Only Admins have the ability to change user roles, including upgrading a Learner to a Creator. Learners cannot modify their roles.
+- **Learning Path Creation**: Creators and Admins can create learning paths by adding resources such as videos, articles, and quizzes.
 - **Progress Tracking**: Learners can track their progress through a timeline or progress bar.
 - **PDF Certificate Generation**: Certificates are generated and available for download when a learner completes a path.
-- **Public & Private Paths**: Users can create public or private paths and share them with others.
-- **Responsive UI/UX**: A user-friendly and responsive interface for seamless interaction.
+- **Public & Private Paths**: Creators can create public or private paths.
+
 
 ## Tech Stack
 
@@ -38,36 +39,77 @@ Before you begin, ensure you have the following installed:
 #### 1. Clone the repository:
 
 ```bash
-git clone https://github.com/aswini/Interactive-Learning-Path-Builder.git
+git clone https://github.com/aswini-14/Interactive-Learning-Path-Builder.git
 cd Interactive-Learning-Path-Builder
 ```
 ### 2. Set up the Backend:
 
    - Navigate to the backend folder:
+        ```bash
         cd server
+        ```
    - Install backend dependencies:
+        ```bash
         npm install
+        ```
    - Set up environment variables:
-        DB_HOST=your-database-host
+        ```bash
+        DB_HOST=localhost
         DB_USER=your-database-user
-        DB_PASSWORD=your-database-password
+        DB_PASS=your-database-password
         DB_NAME=your-database-name
         JWT_SECRET=your-jwt-secret-key
+        DATABASE_URL=postgresql://your_database_user:your_database_password@localhost:5432/your_database_name
+        ```
+
    - Run the backend server:
+        ```bash
         node server.js
+        ```
 
 ### 3. Set up the Frontend
-    Navigate to the client folder:
+   - Navigate to the client folder:
+        ```bash
         cd client
-    Install frontend dependencies:
+        ```
+   - Install frontend dependencies:
+        ```bash
         npm install
-    Run the frontend server:
+        ```
+   - Set up environment variables:
+        ```bash
+        REACT_APP_API_URL=http://localhost:5000/api
+        ```
+   - Run the frontend server:
+        ```bash
         npm start
+        ```
 The application should now be running at http://localhost:3000.
 
+### 4. Running with Docker
+    To run the application with Docker, use the following steps:
+   - Set up environment variables:
+        ```bash
+        DB_HOST=db
+        DB_USER=your-database-user
+        DB_PASS=your-database-password
+        DB_NAME=your-database-name
+        JWT_SECRET=your-jwt-secret-key
+        DATABASE_URL=postgresql://your_database_user:db@db:5432/your_database_name
+        ```
+    
+   - Build the Docker images for both the frontend and backend:
+        ```bash
+        docker-compose build
+        ```
+   - Start the application with Docker:
+        ```bash
+        docker-compose up
+        ```
+   This will start both the frontend and backend services. Access the frontend at http://localhost:3000.
 
-### 4. Deployment
- - **You can deploy the project to services like Netlify or Vercel for the frontend and Heroku for the backend. Follow the documentation provided by each service for detailed deployment steps.**
+
+### 5. Deployment 
 
 - **Frontend (Deployed on Netlify):**
   - [Live Demo (Netlify)](https://ilp-builder.netlify.app/)
@@ -75,14 +117,17 @@ The application should now be running at http://localhost:3000.
 - **Backend (Deployed on Render):**
   - [API (Render)](https://ilp-backend.onrender.com/)
 
- - ** Deployment on Netlify (Frontend):
-    Build the frontend:
+ - **Deployment on Netlify (Frontend)**:
+    - Build the frontend:
+        ```bash
         npm run build
+        ```
     Deploy the client/build folder on Netlify.
-
+ - **Deployment on Render(Backend)**:
+    - Set up a Render account and follow the deployment guide for Node.js applications.
 
 ## License
- - This project is not licensed and is for personal use only. Please do not distribute or use this code in any form.
+ - This project is not licensed and is for personal use only. 
 
 ## Contributing
- - Feel free to fork the project and submit pull requests. If you want to report a bug or request a feature, open an issue in the repository.
+ - "Feel free to reach out for feedback or suggestions on improvements."
